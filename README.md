@@ -13,120 +13,40 @@ In this assignment, you will design the tables to hold data in the CSVs, import 
 #### Data Modeling
 
 Inspect the CSVs and sketch out an ERD of the tables. 
-![Capture.png](images/Capture.png)
+![](images/Capture.png)
 #### Data Engineering
+Use the information you have to create a table schema for each of the six CSV files. Remember to specify data types, primary keys, foreign keys, and other constraints.
 
--- DROPPING TABLE IF IT ALREADY EXISTS
-DROP TABLE IF EXISTS Departments;
-DROP TABLE IF EXISTS Dept_emp;
-DROP TABLE IF EXISTS Dept_manager;
-DROP TABLE IF EXISTS Employees;
-DROP TABLE IF EXISTS Salaries; 
-DROP TABLE IF EXISTS Titles;
+For the primary keys check to see if the column is unique, otherwise create a composite key. Which takes to primary keys in order to uniquely identify a row.
+Be sure to create tables in the correct order to handle foreign keys.
 
---CREATING TABLES WITH CONSTRAINTS FOR DATA INTEGRITY 
-create table Departments (
-dept_no varchar not null primary key ,
-dept_name varchar not null
-);
-create table Titles (
-title_id varchar not null primary key,
-title varchar not null 
-);
 
-create table Employees (
-emp_no int not null,
-emp_title_id varchar not null,
-birth_date date not null,
-first_name varchar not null,
-last_name varchar not null,
-sex varchar not null,
-hire_date date not null
 
-);
-create table Dept_emp (
-emp_no int  not null,
-dept_no varchar not null
-);
-create table Dept_manager (
-dept_no varchar not null,
-emp_no int not null
-
-);
-
-create table Salaries (
-emp_no int not null,
-salary int not null
-
-);
-
--- adding constraints to the table after the upload  since the data couldn't be uploaded in the table with the constraints in 
-ALTER TABLE Employees ADD CONSTRAINT pk_employees_emp PRIMARY KEY (emp_no);
-ALTER TABLE Employees ADD CONSTRAINT fk_employees_TitleID FOREIGN KEY("emp_title_id") REFERENCES  Titles ("title_id");
-ALTER TABLE Dept_emp ADD CONSTRAINT  fk_Dept_emp_emp FOREIGN KEY(emp_no) REFERENCES Employees (emp_no);
-ALTER TABLE Dept_emp ADD CONSTRAINT fk_Dept_emp_dept FOREIGN KEY(dept_no) REFERENCES Departments (dept_no);
-ALTER TABLE Dept_manager ADD CONSTRAINT fk_Dept_manager_emp FOREIGN KEY(emp_no)REFERENCES Employees (emp_no);
-ALTER TABLE Dept_manager ADD CONSTRAINT fk_Dept_manager_dept FOREIGN KEY(dept_no) REFERENCES  Departments (dept_no);
-ALTER TABLE salaries ADD CONSTRAINT fk_salaries_emp FOREIGN KEY(emp_no) REFERENCES Employees (emp_no);
-
--- Table output queries
-select* from Departments;
-select* from Titles;
-select* from Employees;
-select* from dept_emp;
-select* from Dept_manager;
-select* from salaries ;
-
+Import each CSV file into the corresponding SQL table. Note be sure to import the data in the same order that the tables were created and account for the headers when importing to avoid errors.
 #### Data Analysis
 
 Once you have a complete database, do the following:
 
 1. List the following details of each employee: employee number, last name, first name, sex, and salary.
-select emp.emp_no, emp.last_name, emp.first_name, emp.sex, sa.salary 
-from Employees as emp 
-inner join Salaries as sa  on emp.emp_no=sa.emp_no 
 
 2. List first name, last name, and hire date for employees who were hired in 1986.
-select first_name, last_name, hire_date 
-from Employees
-where hire_date between '1986-01-01' and '1986-12-31'
-order by hire_date asc 
+
 
 3. List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name.
-select dm.dept_no, dp.dept_name, dm.emp_no, emp.last_name, emp.first_name
-from Employees as emp 
-inner join Dept_manager as dm  on emp.emp_no=dm.emp_no 
-inner join Departments as dp on dm.dept_no= dp.dept_no
+
 
 4. List the department of each employee with the following information: employee number, last name, first name, and department name.
-select dm.emp_no, emp.last_name, emp.first_name, dp.dept_name
-from Employees as emp 
-inner join dept_emp as dm  on emp.emp_no=dm.emp_no 
-inner join Departments as dp on dm.dept_no= dp.dept_no
+
 5.List first name, last name, and sex for employees whose first name is "Hercules" and last names begin with "B."
-select first_name, last_name, sex 
-from Employees 
-where first_name like '%Hercules%'and last_name like 'B%'
+
 
 6. List all employees in the Sales department, including their employee number, last name, first name, and department name.
-select dm.emp_no, emp.last_name, emp.first_name, dp.dept_name
-from Employees as emp 
-inner join dept_emp as dm  on emp.emp_no=dm.emp_no 
-inner join Departments as dp on dm.dept_no= dp.dept_no
-where dp.dept_no= 'd007'
+
 
 7. List all employees in the Sales and Development departments, including their employee number, last name, first name, and department name.
-select dm.emp_no, emp.last_name, emp.first_name, dp.dept_name
-from Employees as emp 
-inner join dept_emp as dm  on emp.emp_no=dm.emp_no 
-inner join Departments as dp on dm.dept_no= dp.dept_no
-where dp.dept_no in ('d007','d005')
+
 
 8. In descending order, list the frequency count of employee last names, i.e., how many employees share each last name.
-select last_name, count(first_name) as "frequency count"
-from Employees 
-group by last_name
-order by "frequency count" desc
 
 
 ## Bonus (Optional)
@@ -149,5 +69,5 @@ As you examine the data, you are overcome with a creeping suspicion that the dat
 
 3. Create a bar chart of average salary by title.
 
-![sql.png](images/bar_chart_img.png)
-![sql.png](images/bar_chart.png)
+![](images/bar_chart_img.png)
+![](images/bar_chart.png)
