@@ -1,6 +1,6 @@
 # SQL Homework - Employee Database: A Mystery in Two Parts
 
-![](images/sql.png)
+![](images/Capture.png)
 
 ## Background
 
@@ -13,7 +13,7 @@ In this assignment, you will design the tables to hold data in the CSVs, import 
 #### Data Modeling
 
 Inspect the CSVs and sketch out an ERD of the tables. 
-![](images/Capture.png)
+
 #### Data Engineering
 
 -- DROPPING TABLE IF IT ALREADY EXISTS
@@ -178,6 +178,7 @@ Evidence in hand, you march into your boss's office and present the visualizatio
 
 * Create and upload a repository with the above files to GitHub and post a link on BootCamp Spot.
 
-
 ![](images/bar_chart_img.png)
+
+
 ![](images/bar_chart.png)
