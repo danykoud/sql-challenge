@@ -14,6 +14,7 @@ In this assignment, you will design the tables to hold data in the CSVs, import 
 
 Inspect the CSVs and sketch out an ERD of the tables. 
 ![](images/Capture.png)
+
 #### Data Engineering
 Use the information you have to create a table schema for each of the six CSV files. Remember to specify data types, primary keys, foreign keys, and other constraints.
 
